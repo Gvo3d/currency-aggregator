@@ -74,6 +74,7 @@ public class CurrencyService implements ICurrencyService {
 
     @Override
     public boolean persistCurrencyList(List<CurrencyValue> valueList) {
+        LOG.info("Saving list to the dataqbase");
         boolean result = true;
 
         for (CurrencyValue value: valueList){

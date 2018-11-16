@@ -10,6 +10,5 @@ import javax.persistence.Entity;
 @Entity
 public class NationalCurrency extends IdentifiedEntity<Integer>{
     private String shortName;
-    private String fullName;
     private Integer order;
 }
