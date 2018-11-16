@@ -8,6 +8,7 @@ public interface ICurrencyService {
     List<CurrencyValue> getLiveCurrency(boolean ascendByPrice);
     List<CurrencyValue> getSpecificCurrency(String currencyShortName, boolean ascendByPrice);
     boolean persistCurrency(CurrencyValue newValue);
+    boolean persistCurrencyList(List<CurrencyValue> valueList);
     boolean changeAllowanceByBank(String bankName, boolean allow);
     boolean changeSpecificCurrencyAllowanceByBank(String bankName, String shortName, boolean allow);
     List<CurrencyValue> getBestPrices();
