@@ -53,7 +53,7 @@ public class CurrencyService implements ICurrencyService {
 
             CurrencyValue previous = previousOptional.get();
             previous.setBank(newValue.getBank());
-            previous.setOperationAllowed(newValue.isOperationAllowed());
+            previous.setOperationAllowed(newValue.getOperationAllowed());
             previous.setSellingValue(newValue.getSellingValue());
             previous.setType(newValue.getType());
             previous.setValue(newValue.getValue());

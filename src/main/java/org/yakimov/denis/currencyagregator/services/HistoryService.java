@@ -37,22 +37,22 @@ public class HistoryService {
         Date now = new Date();
         action.setDate(now);
 
-        if (oldOne==null && !newOne.isDisabled()){
+        if (oldOne==null && !newOne.getDisabled()){
             action.setActionType(HistoryActionType.CREATED);
             action.setValueInstance(newOne);
             action.setNewValue(String.valueOf(now.getTime()));
 
-        } else if (newOne.isDisabled()) {
+        } else if (newOne.getDisabled()) {
             action.setActionType(HistoryActionType.DELETED);
             action.setValueInstance(oldOne);
             action.setPreviousValue(StaticMessages.ENABLED);
             action.setNewValue(StaticMessages.DISABLED);
 
-        } else if (Boolean.compare(oldOne.isOperationAllowed(), newOne.isOperationAllowed())!=0){
+        } else if (Boolean.compare(oldOne.getOperationAllowed(), newOne.getOperationAllowed())!=0){
             action.setActionType(HistoryActionType.CHANGE_ALLOWED);
             action.setValueInstance(oldOne);
-            action.setPreviousValue(String.valueOf(oldOne.isOperationAllowed()));
-            action.setNewValue(String.valueOf(newOne.isOperationAllowed()));
+            action.setPreviousValue(String.valueOf(oldOne.getOperationAllowed()));
+            action.setNewValue(String.valueOf(newOne.getOperationAllowed()));
 
         } else if (oldOne.getBank()!=newOne.getBank()){
             action.setActionType(HistoryActionType.CHANGE_BANK);

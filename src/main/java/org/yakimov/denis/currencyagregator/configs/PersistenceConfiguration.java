@@ -115,7 +115,7 @@ public class PersistenceConfiguration implements TransactionManagementConfigurer
 
         Properties jpaProperties = new Properties();
         jpaProperties.put(org.hibernate.cfg.Environment.DIALECT, dialect);
-        jpaProperties.put(Environment.HBM2DDL_AUTO, Boolean.valueOf(hbmddl));
+        jpaProperties.put(Environment.HBM2DDL_AUTO, hbmddl);
         entityManagerFactoryBean.setJpaProperties(jpaProperties);
         entityManagerFactoryBean.setDataSource(dataSource());
         return entityManagerFactoryBean;

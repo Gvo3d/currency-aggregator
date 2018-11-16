@@ -4,7 +4,7 @@ dataSource:
   url: jdbc:oracle:thin:@localhost:1521:xe
   username: system
   password: currency
-  hbmddl: true
+  hbmddl: validate
   dialect: org.hibernate.dialect.Oracle10gDialect
   package: org.yakimov.denis.currencyagregator.models
 
