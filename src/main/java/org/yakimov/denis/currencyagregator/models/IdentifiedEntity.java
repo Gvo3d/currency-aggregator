@@ -15,5 +15,5 @@ abstract class IdentifiedEntity<T> {
     T id;
     @Temporal(TemporalType.TIMESTAMP)
     Date changed;
-    boolean disabled;
+    Boolean disabled;
 }

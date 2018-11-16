@@ -4,11 +4,14 @@ buildscript {
     }
     repositories {
         mavenCentral()
+        jcenter()
+        maven { url "http://repo.boundlessgeo.com/main/" }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
 }
+
 
 apply plugin: 'java'
 apply plugin: 'eclipse-wtp'
@@ -22,6 +25,8 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    jcenter()
+    maven { url "http://repo.boundlessgeo.com/main/" }
 }
 
 configurations {
@@ -31,15 +36,16 @@ configurations {
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-cache')
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
-    compile('org.springframework.boot:spring-boot-starter-security')
     compile('org.springframework.boot:spring-boot-starter-web')
     compileOnly('org.projectlombok:lombok')
     providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
-    testCompile('org.springframework.security:spring-security-test')
+    //compile('org.springframework.boot:spring-boot-starter-security')
+    //testCompile('org.springframework.security:spring-security-test')
     compile group: 'com.mchange', name: 'c3p0', version: '0.9.2.1'
     compile group: 'org.hibernate', name: 'hibernate-c3p0', version: '5.2.10.Final'
     compile group: 'org.lazyluke', name: 'log4jdbc-remix', version: '0.2.7'
-    compile group: 'org.yaml', name: 'snakeyaml', version: '1.11'
+    compile group: 'org.yaml', name: 'snakeyaml', version: '1.23'
+    runtime group: 'com.oracle.jdbc', name: 'ojdbc6', version: '11.1.0.6.0'
     compile group: 'net.sf.ehcache', name: 'ehcache', version: '2.9.1'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8'
     compile('log4j:log4j:1.2.17')

@@ -7,6 +7,8 @@ import org.yakimov.denis.currencyagregator.support.JacksonMappingMarker;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown=true)
@@ -20,5 +22,6 @@ public class User extends IdentifiedEntity<Long>{
     @JsonView(JacksonMappingMarker.Private.class)
     private String password;
     @JsonView(JacksonMappingMarker.Public.class)
+    @Enumerated(EnumType.STRING)
     private Group group;
 }

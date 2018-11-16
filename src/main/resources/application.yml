@@ -1,0 +1,10 @@
+#PROPS
+dataSource:
+  driverClassName: oracle.jdbc.driver.OracleDriver
+  url: jdbc:oracle:thin:@localhost:1521:xe
+  username: system
+  password: currency
+  hbmddl: true
+  dialect: org.hibernate.dialect.Oracle10gDialect
+  package: org.yakimov.denis.currencyagregator.models
+
