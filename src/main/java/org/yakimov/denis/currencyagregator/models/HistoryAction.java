@@ -23,4 +23,19 @@ public class HistoryAction extends IdentifiedEntity<Long>{
     private HistoryActionType actionType;
     private String previousValue;
     private String newValue;
+
+    @Override
+    public String toString() {
+        return "HistoryAction{" +
+                "valueInstance=" + valueInstance!=null?"present":"null" +
+                ", author=" + author +
+                ", date=" + date +
+                ", actionType=" + actionType +
+                ", previousValue='" + previousValue + '\'' +
+                ", newValue='" + newValue + '\'' +
+                ", id=" + id +
+                ", changed=" + changed +
+                ", disabled=" + disabled +
+                '}';
+    }
 }

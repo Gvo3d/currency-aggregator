@@ -4,36 +4,36 @@
       <action>BUYING</action>
       <allowed>true</allowed>
       <name>USD</name>
-      <value>15.01</value>
+      <value>15.21</value>
    </element>
    <element>
       <action>SELLING</action>
       <allowed>true</allowed>
       <name>USD</name>
+      <value>37.63</value>
+   </element>
+   <element>
+      <action>BUYING</action>
+      <allowed>true</allowed>
+      <name>GBR</name>
+      <value>39.50</value>
+   </element>
+   <element>
+      <action>SELLING</action>
+      <allowed>true</allowed>
+      <name>GBR</name>
       <value>27.63</value>
    </element>
    <element>
       <action>BUYING</action>
       <allowed>true</allowed>
-      <name>GBR</name>
-      <value>39.00</value>
-   </element>
-   <element>
-      <action>SELLING</action>
-      <allowed>true</allowed>
-      <name>GBR</name>
-      <value>28.63</value>
-   </element>
-   <element>
-      <action>BUYING</action>
-      <allowed>true</allowed>
       <name>EUR</name>
-      <value>21.13</value>
+      <value>29.13</value>
    </element>
    <element>
       <action>SELLING</action>
       <allowed>true</allowed>
       <name>EUR</name>
-      <value>29.94</value>
+      <value>49.94</value>
    </element>
 </root>

@@ -19,4 +19,15 @@ public class NationalCurrency extends IdentifiedEntity<Integer>{
     private Integer order;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "type")
     List<CurrencyValue> currencyValueList = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "NationalCurrency{" +
+                "shortName='" + shortName + '\'' +
+                ", order=" + order +
+                ", id=" + id +
+                ", changed=" + changed +
+                ", disabled=" + disabled +
+                '}';
+    }
 }

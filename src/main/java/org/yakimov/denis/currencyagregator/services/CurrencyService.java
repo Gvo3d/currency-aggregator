@@ -58,9 +58,9 @@ public class CurrencyService implements ICurrencyService {
         CurrencyActionType actionType = isBuying ? CurrencyActionType.BUYING : CurrencyActionType.SELLING;
 
         if (ascendByPrice) {
-                result = currencyValueRepository.getByTypeAndSellingValueAndDisabledOrderByValueAsc(nationalCurrency, actionType, false);
+                result = currencyValueRepository.getByTypeAndSellingValueAndDisabledAndOperationAllowedOrderByValueAsc(nationalCurrency, actionType, false, true);
         } else {
-                result = currencyValueRepository.getByTypeAndSellingValueAndDisabledOrderByValueDesc(nationalCurrency, actionType, false);
+                result = currencyValueRepository.getByTypeAndSellingValueAndDisabledAndOperationAllowedOrderByValueDesc(nationalCurrency, actionType, false, true);
         }
 
         return result.stream().map(this::convert).collect(Collectors.toList());
@@ -70,38 +70,47 @@ public class CurrencyService implements ICurrencyService {
     @Transactional
     @Override
     public CurrencyDto persistCurrency(CurrencyDto newValue) throws WrongIncomingDataException {
+
         NationalCurrency currency = nationalCurrencyRepository.getByShortName(newValue.getName());
+        if (currency==null){
+            NationalCurrency newOne = new NationalCurrency();
+            newOne.setShortName(newValue.getName());
+            newOne.setChanged(new Date());
+            newOne.setDisabled(false);
+            newOne.setOrder(0);
+            currency = nationalCurrencyRepository.save(newOne);
+        }
+
         Bank bank = bankRepository.getByDisplayName(newValue.getBank());
+        if (bank==null){
+            Bank newBank = new Bank();
+            newBank.setDisplayName(newValue.getBank());
+            newBank.setChanged(new Date());
+            newBank.setDisabled(false);
+            bank = bankRepository.save(newBank);
+        }
+
         CurrencyActionType actionType = CurrencyActionType.valueOf(newValue.getAction());
         Boolean allowed = newValue.getAllowed();
         BigDecimal value = new BigDecimal(newValue.getValue());
 
         try {
-            List<CurrencyValue> previousList = currencyValueRepository.getByTypeAndBankAndSellingValue(currency, bank, actionType);
+            List<CurrencyValue> previousList = currencyValueRepository.getByTypeAndBankAndSellingValueAndDisabled(currency, bank, actionType, false);
 
-            CurrencyValue toPersist;
-
-            Optional<CurrencyValue> previousOptional = previousList.stream().sorted(dateComparator).findFirst();
-            if (previousOptional.isPresent()) {
-                for (CurrencyValue currentPrevious : previousList) {
-                    if (currentPrevious != previousOptional.get()) {
-                        historyService.persistHistory(null, currentPrevious);
-                        currentPrevious.setDisabled(true);
-                    }
-                }
-                toPersist = previousOptional.get();
-            } else {
-                toPersist = new CurrencyValue();
+            for (CurrencyValue currentPrevious : previousList) {
+                currentPrevious.setDisabled(true);
             }
 
+            CurrencyValue toPersist = new CurrencyValue();
             toPersist.setBank(bank);
             toPersist.setOperationAllowed(allowed);
+            toPersist.setDisabled(false);
             toPersist.setSellingValue(actionType);
             toPersist.setType(currency);
             toPersist.setValue(value);
             toPersist.setChanged(new Date());
 
-            historyService.persistHistory(null, toPersist);
+            //historyService.persistHistory(null, toPersist);
             CurrencyValue result = currencyValueRepository.save(toPersist);
             return convert(result);
 

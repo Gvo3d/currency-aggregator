@@ -1,5 +1,7 @@
 package org.yakimov.denis.currencyagregator.dto;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 import lombok.Data;
 import org.yakimov.denis.currencyagregator.models.CurrencyValue;
 

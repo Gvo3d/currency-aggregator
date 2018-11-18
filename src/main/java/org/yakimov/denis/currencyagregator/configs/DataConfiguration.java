@@ -1,11 +1,32 @@
-//package org.yakimov.denis.currencyagregator.configs;
-//
-//import org.springframework.cache.annotation.EnableCaching;
-//import org.springframework.context.annotation.ComponentScan;
-//import org.springframework.context.annotation.Configuration;
-//
-//@Configuration
+package org.yakimov.denis.currencyagregator.configs;
+
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
+
+import javax.servlet.MultipartConfigElement;
+
+@Configuration
 //@EnableCaching
 //@ComponentScan({ "org.yakimov.denis.currencyagregator.*" })
-//public class DataConfiguration {
-//}
+public class DataConfiguration {
+    @Bean(name = "commonsMultipartResolver")
+    public MultipartResolver multipartResolver() {
+        return new StandardServletMultipartResolver();
+    }
+
+
+    @Bean
+    public MultipartConfigElement multipartConfigElement() {
+        MultipartConfigFactory factory = new MultipartConfigFactory();
+
+        factory.setMaxFileSize("10MB");
+        factory.setMaxRequestSize("10MB");
+
+        return factory.createMultipartConfig();
+    }
+}

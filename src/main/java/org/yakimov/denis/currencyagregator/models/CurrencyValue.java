@@ -28,4 +28,19 @@ public class CurrencyValue extends IdentifiedEntity<Long>{
     private Boolean operationAllowed;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "valueInstance")
     List<HistoryAction> historyList = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "CurrencyValue{" +
+                "type=" + type!=null?type.toString():"null" +
+                ", bank=" + bank!=null?bank.toString():"null" +
+                ", value=" + value +
+                ", sellingValue=" + sellingValue!=null?sellingValue.toString():"null" +
+                ", operationAllowed=" + operationAllowed +
+                ", historyList=" + historyList!=null?historyList.toString():"null" +
+                ", id=" + id +
+                ", changed=" + changed +
+                ", disabled=" + disabled +
+                '}';
+    }
 }

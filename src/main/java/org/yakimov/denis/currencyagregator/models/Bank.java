@@ -19,4 +19,14 @@ public class Bank extends IdentifiedEntity<Integer> {
     private String displayName;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "bank")
     List<CurrencyValue> currencyValueList = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Bank{" +
+                "displayName='" + displayName + '\'' +
+                ", id=" + id +
+                ", changed=" + changed +
+                ", disabled=" + disabled +
+                '}';
+    }
 }

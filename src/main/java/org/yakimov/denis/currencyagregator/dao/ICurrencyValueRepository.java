@@ -9,9 +9,9 @@ import org.yakimov.denis.currencyagregator.models.NationalCurrency;
 import java.util.List;
 
 public interface ICurrencyValueRepository extends JpaRepository<CurrencyValue, Long> {
-    List<CurrencyValue> getByTypeAndBankAndSellingValue(NationalCurrency type, Bank bank, CurrencyActionType sellingValue);
-    List<CurrencyValue> getByTypeAndSellingValueAndDisabledOrderByValueAsc(NationalCurrency type, CurrencyActionType sellingValue, boolean disabled);
-    List<CurrencyValue> getByTypeAndSellingValueAndDisabledOrderByValueDesc(NationalCurrency type, CurrencyActionType sellingValue, boolean disabled);
+    List<CurrencyValue> getByTypeAndBankAndSellingValueAndDisabled(NationalCurrency type, Bank bank, CurrencyActionType sellingValue, boolean disabled);
+    List<CurrencyValue> getByTypeAndSellingValueAndDisabledAndOperationAllowedOrderByValueAsc(NationalCurrency type, CurrencyActionType sellingValue, boolean disabled, boolean operationAllowed);
+    List<CurrencyValue> getByTypeAndSellingValueAndDisabledAndOperationAllowedOrderByValueDesc(NationalCurrency type, CurrencyActionType sellingValue, boolean disabled, boolean operationAllowed);
     List<CurrencyValue> getByTypeAndBank(NationalCurrency type, Bank bank);
     List<CurrencyValue> getByBank(Bank bank);
 }
