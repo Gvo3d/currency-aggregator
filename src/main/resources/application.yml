@@ -1,10 +1,10 @@
 #PROPS
 dataSource:
-  driverClassName: oracle.jdbc.driver.OracleDriver
-  url: jdbc:oracle:thin:@localhost:1521:xe
-  username: system
-  password: currency
-  hbmddl: validate
-  dialect: org.hibernate.dialect.Oracle10gDialect
+  driverClassName: org.postgresql.Driver
+  url: jdbc:postgresql://192.168.99.100:5433/currency
+  username: currency
+  password: root
+  hbmddl: update
+  dialect: org.hibernate.dialect.PostgreSQLDialect
   package: org.yakimov.denis.currencyagregator.models
 

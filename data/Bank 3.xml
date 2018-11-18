@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+   <element>
+      <action>BUYING</action>
+      <allowed>true</allowed>
+      <name>USD</name>
+      <value>15.01</value>
+   </element>
+   <element>
+      <action>SELLING</action>
+      <allowed>true</allowed>
+      <name>USD</name>
+      <value>27.63</value>
+   </element>
+   <element>
+      <action>BUYING</action>
+      <allowed>true</allowed>
+      <name>GBR</name>
+      <value>39.00</value>
+   </element>
+   <element>
+      <action>SELLING</action>
+      <allowed>true</allowed>
+      <name>GBR</name>
+      <value>28.63</value>
+   </element>
+   <element>
+      <action>BUYING</action>
+      <allowed>true</allowed>
+      <name>EUR</name>
+      <value>21.13</value>
+   </element>
+   <element>
+      <action>SELLING</action>
+      <allowed>true</allowed>
+      <name>EUR</name>
+      <value>29.94</value>
+   </element>
+</root>

@@ -1,0 +1,5 @@
+[{"name":"USD","action":"BUYING","value":"15.01","allowed":true},{"name":"USD","action":"SELLING","value":"27.63","allowed":true},
+{"name":"GBR","action":"BUYING","value":"39.00","allowed":true},
+{"name":"GBR","action":"SELLING","value":"28.63","allowed":true},
+{"name":"EUR","action":"BUYING","value":"21.13","allowed":true},
+{"name":"EUR","action":"SELLING","value":"29.94","allowed":true}]

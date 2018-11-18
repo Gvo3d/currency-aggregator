@@ -3,6 +3,7 @@ package org.yakimov.denis.currencyagregator.configs;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import lombok.Data;
 import org.hibernate.cfg.Environment;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,12 +14,22 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
+import org.yakimov.denis.currencyagregator.models.CurrencyValue;
+import org.yakimov.denis.currencyagregator.models.User;
+import org.yakimov.denis.currencyagregator.services.CurrencyService;
+import org.yakimov.denis.currencyagregator.services.ICurrencyService;
+import org.yakimov.denis.currencyagregator.services.UserService;
+import org.yakimov.denis.currencyagregator.support.CountResultSetExtractor;
+import org.yakimov.denis.currencyagregator.support.DefaultDataGenerator;
+import org.yakimov.denis.currencyagregator.support.StaticMessages;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 
 @Data
@@ -41,19 +52,38 @@ public class PersistenceConfiguration implements TransactionManagementConfigurer
     @Value("${dataSource.package}")
     private String modelPackage;
 
+    @Autowired
+    private ICurrencyService currencyService;
+
+    @Autowired
+    private UserService userService;
+
     @PostConstruct
     private void init() {
-//        Connection conn = null;
-//        Properties connectionProps = new Properties();
-//        connectionProps.put("user", username);
-//        connectionProps.put("password", password);
-//        try {
-//            conn = DriverManager.getConnection(url, connectionProps);
-//            JdbcTemplate template = new JdbcTemplate(dataSource());
-//            template.query()
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        Connection conn = null;
+        Properties connectionProps = new Properties();
+        connectionProps.put("user", username);
+        connectionProps.put("password", password);
+        try {
+            conn = DriverManager.getConnection(url, connectionProps);
+            JdbcTemplate template = new JdbcTemplate(dataSource());
+            DefaultDataGenerator generator = new DefaultDataGenerator();
+            int count = template.query(StaticMessages.CHECK_USERS_SQL, new CountResultSetExtractor());
+            if (count==0){
+                List<User> userList = generator.generateUsers();
+
+                for (User user: userList){
+                    userService.create(user);
+                }
+            }
+            count=template.query(StaticMessages.CHECK_CURRENCIES_SQL, new CountResultSetExtractor());
+            if (count==0){
+                List<CurrencyValue> valueList = generator.generateCurrencyData();
+                currencyService.persistCurrencyList(valueList);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Bean
@@ -114,8 +144,9 @@ public class PersistenceConfiguration implements TransactionManagementConfigurer
         entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 
         Properties jpaProperties = new Properties();
-        jpaProperties.put(org.hibernate.cfg.Environment.DIALECT, dialect);
+        jpaProperties.put(Environment.DIALECT, dialect);
         jpaProperties.put(Environment.HBM2DDL_AUTO, hbmddl);
+        jpaProperties.put("hibernate.temp.use_jdbc_metadata_defaults", false);
         entityManagerFactoryBean.setJpaProperties(jpaProperties);
         entityManagerFactoryBean.setDataSource(dataSource());
         return entityManagerFactoryBean;

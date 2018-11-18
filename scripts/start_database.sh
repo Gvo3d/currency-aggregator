@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker start currencydb
+docker start currency

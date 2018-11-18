@@ -2,11 +2,13 @@ package org.yakimov.denis.currencyagregator.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Data
+@EqualsAndHashCode(callSuper = true, exclude = {"valueInstance", "author"})
 @JsonIgnoreProperties(ignoreUnknown=true)
 @Entity
 public class HistoryAction extends IdentifiedEntity<Long>{

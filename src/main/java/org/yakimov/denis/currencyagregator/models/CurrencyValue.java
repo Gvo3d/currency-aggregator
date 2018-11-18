@@ -2,6 +2,7 @@ package org.yakimov.denis.currencyagregator.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@EqualsAndHashCode(callSuper = true, exclude = {"type", "bank", "historyList"})
 @JsonIgnoreProperties(ignoreUnknown=true)
 @Entity
 public class CurrencyValue extends IdentifiedEntity<Long>{
