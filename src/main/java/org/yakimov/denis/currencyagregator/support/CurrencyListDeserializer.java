@@ -41,6 +41,7 @@ public class CurrencyListDeserializer extends StdDeserializer<List<CurrencyDto>>
                 }
             }
         } else if (node.isObject()){
+            JsonNode root = node.get(0);
             Iterator<Map.Entry<String, JsonNode>> iterator = root.fields();
             while (iterator.hasNext()) {
                 JsonNode xmlObject = iterator.next().getValue();

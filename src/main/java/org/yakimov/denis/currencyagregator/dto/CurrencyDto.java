@@ -1,11 +1,11 @@
 package org.yakimov.denis.currencyagregator.dto;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.yakimov.denis.currencyagregator.models.CurrencyValue;
 
 @Data
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class CurrencyDto {
     private String name;
     private String bank;

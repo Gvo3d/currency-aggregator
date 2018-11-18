@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.yakimov.denis.currencyagregator.dto.CurrencyDto;
 import org.yakimov.denis.currencyagregator.services.ICurrencyService;
+import org.yakimov.denis.currencyagregator.support.StaticMessages;
 import org.yakimov.denis.currencyagregator.support.WrongIncomingDataException;
 
 import java.util.List;
@@ -31,7 +32,24 @@ public class CurrencyController {
     }
 
 
-    @PostMapping(produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    @PutMapping(produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity changeCurrencyAvailability(@RequestParam("type") String bankName,
+                                              @RequestParam("type") String currencyName,
+                                              @RequestParam("action") String action,
+                                              @RequestParam(value = "allow", required = false) Boolean allow,
+                                              @RequestParam(value="delete", required = false) Boolean delete){
+        if (allow == null && (delete == null || !delete)){
+            return new ResponseEntity<>(StaticMessages.NO_FLAGS, HttpStatus.BAD_REQUEST);
+        }
+        try {
+            return new ResponseEntity<List<CurrencyDto>>(currencyService.changeSpecificCurrencyAllowanceByBank(bankName, currencyName, action, allow, delete), HttpStatus.OK);
+        } catch (WrongIncomingDataException e) {
+            return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+    @PostMapping(produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
     public ResponseEntity addSpecificCurrency(@RequestBody CurrencyDto incoming){
         try {
             return new ResponseEntity<>(currencyService.persistCurrency(incoming), HttpStatus.CREATED);

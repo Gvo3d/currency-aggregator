@@ -7,11 +7,9 @@ import org.yakimov.denis.currencyagregator.support.WrongIncomingDataException;
 import java.util.List;
 
 public interface ICurrencyService {
-    List<CurrencyValue> getLiveCurrency(boolean ascendByPrice);
     List<CurrencyDto> getSpecificCurrency(String currencyShortName, boolean isBuying, boolean ascendByPrice) throws WrongIncomingDataException;
     CurrencyDto persistCurrency(CurrencyDto newValue) throws WrongIncomingDataException;
     void persistCurrencyList(List<CurrencyValue> valueList);
-    boolean changeAllowanceByBank(String bankName, boolean allow);
-    boolean changeSpecificCurrencyAllowanceByBank(String bankName, String shortName, boolean allow);
+    List<CurrencyDto> changeSpecificCurrencyAllowanceByBank(String bankName, String shortName, String action, Boolean allow, boolean delete) throws WrongIncomingDataException;
     List<CurrencyValue> getBestPrices();
 }
