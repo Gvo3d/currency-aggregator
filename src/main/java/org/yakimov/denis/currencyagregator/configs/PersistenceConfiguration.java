@@ -15,10 +15,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 import org.yakimov.denis.currencyagregator.models.CurrencyValue;
-import org.yakimov.denis.currencyagregator.models.User;
-import org.yakimov.denis.currencyagregator.services.CurrencyService;
 import org.yakimov.denis.currencyagregator.services.ICurrencyService;
-import org.yakimov.denis.currencyagregator.services.UserService;
 import org.yakimov.denis.currencyagregator.support.CountResultSetExtractor;
 import org.yakimov.denis.currencyagregator.support.DefaultDataGenerator;
 import org.yakimov.denis.currencyagregator.support.StaticMessages;
@@ -29,7 +26,6 @@ import java.beans.PropertyVetoException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.List;
-import java.util.Locale;
 import java.util.Properties;
 
 @Data
@@ -55,9 +51,6 @@ public class PersistenceConfiguration implements TransactionManagementConfigurer
     @Autowired
     private ICurrencyService currencyService;
 
-    @Autowired
-    private UserService userService;
-
     @PostConstruct
     private void init() {
         Connection conn = null;
@@ -68,15 +61,7 @@ public class PersistenceConfiguration implements TransactionManagementConfigurer
             conn = DriverManager.getConnection(url, connectionProps);
             JdbcTemplate template = new JdbcTemplate(dataSource());
             DefaultDataGenerator generator = new DefaultDataGenerator();
-            int count = template.query(StaticMessages.CHECK_USERS_SQL, new CountResultSetExtractor());
-            if (count==0){
-                List<User> userList = generator.generateUsers();
-
-                for (User user: userList){
-                    userService.create(user);
-                }
-            }
-            count=template.query(StaticMessages.CHECK_CURRENCIES_SQL, new CountResultSetExtractor());
+            int count = template.query(StaticMessages.CHECK_CURRENCIES_SQL, new CountResultSetExtractor());
             if (count==0){
                 List<CurrencyValue> valueList = generator.generateCurrencyData();
                 currencyService.persistCurrencyList(valueList);

@@ -11,5 +11,5 @@ public interface ICurrencyService {
     CurrencyDto persistCurrency(CurrencyDto newValue) throws WrongIncomingDataException;
     void persistCurrencyList(List<CurrencyValue> valueList);
     List<CurrencyDto> changeSpecificCurrencyAllowanceByBank(String bankName, String shortName, String action, Boolean allow, boolean delete) throws WrongIncomingDataException;
-    List<CurrencyValue> getBestPrices();
+    List<CurrencyValue> getAllData();
 }

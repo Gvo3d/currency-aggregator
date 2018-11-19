@@ -14,9 +14,7 @@ public interface ICurrencyValueRepository extends JpaRepository<CurrencyValue, L
     List<CurrencyValue> getByTypeAndBankAndDisabled(NationalCurrency type, Bank bank, boolean disabled);
     List<CurrencyValue> getByBankAndSellingValueAndDisabled(Bank bank, CurrencyActionType sellingValue, boolean disabled);
     List<CurrencyValue> getByBankAndDisabled(Bank bank, boolean disabled);
-
     List<CurrencyValue> getByTypeAndSellingValueAndDisabledAndOperationAllowedOrderByValueAsc(NationalCurrency type, CurrencyActionType sellingValue, boolean disabled, boolean operationAllowed);
     List<CurrencyValue> getByTypeAndSellingValueAndDisabledAndOperationAllowedOrderByValueDesc(NationalCurrency type, CurrencyActionType sellingValue, boolean disabled, boolean operationAllowed);
-    List<CurrencyValue> getByTypeAndBank(NationalCurrency type, Bank bank);
-    List<CurrencyValue> getByBank(Bank bank);
+    List<CurrencyValue> getByDisabled(boolean disabled);
 }

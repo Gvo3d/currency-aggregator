@@ -7,11 +7,9 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
-@EqualsAndHashCode(callSuper = true, exclude = {"type", "bank", "historyList"})
+@EqualsAndHashCode(callSuper = true, exclude = {"type", "bank"})
 @JsonIgnoreProperties(ignoreUnknown=true)
 @Entity
 public class CurrencyValue extends IdentifiedEntity<Long>{
@@ -26,18 +24,15 @@ public class CurrencyValue extends IdentifiedEntity<Long>{
     @Enumerated(EnumType.STRING)
     private CurrencyActionType sellingValue;
     private Boolean operationAllowed;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "valueInstance")
-    List<HistoryAction> historyList = new ArrayList<>();
 
     @Override
     public String toString() {
         return "CurrencyValue{" +
-                "type=" + type!=null?type.toString():"null" +
-                ", bank=" + bank!=null?bank.toString():"null" +
+                "type=" + (type!=null?type.getShortName():"null") +
+                ", bank=" + (bank!=null?bank.getDisplayName():"null") +
                 ", value=" + value +
-                ", sellingValue=" + sellingValue!=null?sellingValue.toString():"null" +
+                ", sellingValue=" + (sellingValue!=null?sellingValue.toString():"null") +
                 ", operationAllowed=" + operationAllowed +
-                ", historyList=" + historyList!=null?historyList.toString():"null" +
                 ", id=" + id +
                 ", changed=" + changed +
                 ", disabled=" + disabled +

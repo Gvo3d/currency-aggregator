@@ -5,10 +5,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import com.fasterxml.jackson.databind.node.JsonNodeType;
 import org.yakimov.denis.currencyagregator.dto.CurrencyDto;
 
-import javax.xml.bind.SchemaOutputResolver;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -21,13 +19,13 @@ public class CurrencyListDeserializer extends StdDeserializer<List<CurrencyDto>>
         this(null);
     }
 
-    public CurrencyListDeserializer(Class<?> vc) {
+    private CurrencyListDeserializer(Class<?> vc) {
         super(vc);
     }
 
     @Override
     public List<CurrencyDto> deserialize(JsonParser jp, DeserializationContext ctxt)
-            throws IOException, JsonProcessingException {
+            throws IOException {
         List<CurrencyDto> resultList = new ArrayList<>();
 
         JsonNode node = jp.getCodec().readTree(jp);
@@ -41,7 +39,7 @@ public class CurrencyListDeserializer extends StdDeserializer<List<CurrencyDto>>
                 }
             }
         } else if (node.isObject()){
-            JsonNode root = node.get(0);
+            JsonNode root = node.get("root");
             Iterator<Map.Entry<String, JsonNode>> iterator = root.fields();
             while (iterator.hasNext()) {
                 JsonNode xmlObject = iterator.next().getValue();

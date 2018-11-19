@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.yakimov.denis.currencyagregator.dao.IBankRepository;
 import org.yakimov.denis.currencyagregator.dao.ICurrencyValueRepository;
-import org.yakimov.denis.currencyagregator.dao.IHistoryActionRepository;
 import org.yakimov.denis.currencyagregator.dao.INationalCurrencyRepository;
 import org.yakimov.denis.currencyagregator.dto.CurrencyDto;
 import org.yakimov.denis.currencyagregator.models.Bank;
@@ -18,7 +17,6 @@ import org.yakimov.denis.currencyagregator.support.StaticMessages;
 import org.yakimov.denis.currencyagregator.support.WrongIncomingDataException;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -35,9 +33,6 @@ public class CurrencyService implements ICurrencyService {
 
     @Autowired
     private IBankRepository bankRepository;
-
-    @Autowired
-    private HistoryService historyService;
 
 
     @Override
@@ -194,8 +189,8 @@ public class CurrencyService implements ICurrencyService {
     }
 
     @Override
-    public List<CurrencyValue> getBestPrices() {
-        return null;
+    public List<CurrencyValue> getAllData() {
+        return currencyValueRepository.getByDisabled(false);
     }
 
     private CurrencyDto convert(CurrencyValue value) {

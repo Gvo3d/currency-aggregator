@@ -10,29 +10,7 @@ import java.util.List;
 public class DefaultDataGenerator {
     private static final String[] banks = {"Bank 1", "Bank 2", "Bank 3"};
     private static final String[] nationals = {"USD", "GBP", "EUR"};
-    private static final String[] logins = {"admin", "client"};
-    private static final String[] names = {"admin_name", "client_name"};
-    private static final Group[] groups = {Group.ADMIN, Group.CLIENT};
-    private static final String password = "pass";
     private Date now = new Date();
-
-
-    public List<User> generateUsers(){
-        List<User> userList = new ArrayList<>(2);
-
-        for (int i=0; i<2; i++){
-            User user = new User();
-            user.setLogin(logins[i]);
-            user.setName(names[i]);
-            user.setPassword(password);
-            user.setGroup(groups[i]);
-            user.setChanged(now);
-            user.setDisabled(false);
-            userList.add(user);
-        }
-
-        return userList;
-    }
 
 
     public List<CurrencyValue> generateCurrencyData(){
@@ -55,7 +33,6 @@ public class DefaultDataGenerator {
                 value.setBank(bank);
                 bank.getCurrencyValueList().add(value);
                 value.setType(national);
-               //national.getCurrencyValueList().add(value);
                 value.setOperationAllowed(true);
                 value.setSellingValue(CurrencyActionType.BUYING);
                 values.add(value);
@@ -69,9 +46,7 @@ public class DefaultDataGenerator {
                 value.setChanged(now);
                 value.setValue(random);
                 value.setBank(bank);
-               // bank.getCurrencyValueList().add(value);
                 value.setType(national);
-                //national.getCurrencyValueList().add(value);
                 value.setOperationAllowed(true);
                 value.setSellingValue(CurrencyActionType.SELLING);
                 values.add(value);
